@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <AppContextProvider>
       <HeaderBar />
-      <ContentJournal />
+      <div>
+        <h1>Coucou</h1>
+      </div>
     </AppContextProvider>
   );
 }
