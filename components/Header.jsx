@@ -4,7 +4,7 @@ import "@fontsource/roboto/700.css";
 import Link from "next/link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const HeaderBar = () => {
+const HeaderBar = ({ title }) => {
   const theme = createTheme({
     palette: {
       primary: { main: "#581845" },
@@ -17,7 +17,7 @@ const HeaderBar = () => {
         <AppBar position="static" color="primary">
           <Toolbar>
             <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-              Dashboard
+              {title}
             </Typography>
             <Link href="/" passHref>
               <Button color="inherit">Journal</Button>

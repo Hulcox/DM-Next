@@ -5,7 +5,7 @@ import HeaderBar from "../components/Header";
 export default function Home() {
   return (
     <AppContextProvider>
-      <HeaderBar />
+      <HeaderBar title={"Dashboard"} />
       <ContentJournal />
     </AppContextProvider>
   );
