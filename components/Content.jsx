@@ -15,7 +15,6 @@ const ContentJournal = () => {
   const formatNumberNegative = (nb) => {
     return String(nb).slice(1);
   };
-
   return (
     <>
       <Grid container sx={{ px: "20%", py: "2%" }}>
@@ -128,7 +127,6 @@ const ContentJournal = () => {
               </ListItemText>
               <ListItemText sx={{ textAlign: "right" }}>
                 <Typography sx={{ color: "#E80000" }}>
-                  {console.log(resultatOut)}
                   {"-$" + formatNumberNegative(resultatOut)}
                 </Typography>
               </ListItemText>
@@ -175,7 +173,6 @@ const ContentJournal = () => {
           </Box>
         </Grid>
       </Grid>
-      {console.log(listData)}
     </>
   );
 };

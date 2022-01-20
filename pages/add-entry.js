@@ -1,6 +1,5 @@
 import { AppContextProvider } from "../components/appContext";
-import ContentJournal from "../components/Content";
-import FormAddEntry from "../components/FormAddEntry";
+import FormAddEntry from "../components/form/FormAddEntry";
 import HeaderBar from "../components/Header";
 
 export default function Home() {

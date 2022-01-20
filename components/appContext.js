@@ -3,25 +3,10 @@ import { createContext, useCallback, useEffect, useState } from "react";
 const AppContext = createContext({});
 
 export const AppContextProvider = (props) => {
-  const [listData, setListData] = useState([
-    {
-      index: 0,
-      value: 2000,
-      description: "1 day consulting",
-    },
-    {
-      index: 1,
-      description: "test",
-      value: -1000,
-    },
-    {
-      index: 2,
-      description: "test2",
-      value: -500,
-    },
-  ]);
+  const [listData, setListData] = useState([]);
   const [resultatIn, setResultatIn] = useState(0);
   const [resultatOut, setResultatOut] = useState(0);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     let resIn = listData.reduce((total, current) => {
@@ -42,21 +27,25 @@ export const AppContextProvider = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listData]);
 
-  /*useEffect(() => {
-    handleSetDataList(window.localStorage);
-  });*/
+  useEffect(() => {
+    console.log(localStorage);
+  });
 
   const handleSetDataList = useCallback(
     (data) => {
-      setListData([...listData, { ...data }]);
+      setListData([{ ...data, index: index }]);
+      localStorage.setItem(index, JSON.stringify(data));
+      localStorage.setItem("lastIndex", index);
+      console.log(index);
+      setIndex(index + 1);
     },
-    [listData]
+    [index]
   );
 
   return (
     <AppContext.Provider
       {...props}
-      value={{ listData, resultatIn, resultatOut }}
+      value={{ listData, resultatIn, resultatOut, handleSetDataList }}
     />
   );
 };

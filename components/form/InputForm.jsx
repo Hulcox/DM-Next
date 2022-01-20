@@ -1,21 +1,16 @@
-import {
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  InputAdornment,
-} from "@mui/material";
+import { InputLabel, OutlinedInput, InputAdornment } from "@mui/material";
 const InputFormNumber = (props) => {
   return (
-    <FormControl fullWidth sx={{ mb: 2 }}>
+    <>
       <InputLabel>Amount</InputLabel>
       <OutlinedInput
         startAdornment={<InputAdornment position="start">$</InputAdornment>}
-        label="Amount"
         type="number"
-        value={props.value}
-        onChange={props.onChange}
+        {...props}
+        fullWidth
+        sx={{ mb: 2 }}
       />
-    </FormControl>
+    </>
   );
 };
 export default InputFormNumber;
