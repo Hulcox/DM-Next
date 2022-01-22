@@ -14,7 +14,7 @@ const FormAddEntry = () => {
     },
   });
 
-  const { handleSetDataList } = useContext(AppContext);
+  const { index, setIndex } = useContext(AppContext);
 
   const AddEntrySchema = Yup.object().shape({
     amount: Yup.number()
@@ -28,12 +28,27 @@ const FormAddEntry = () => {
     description: Yup.string().required("Description is a required field"),
   });
 
-  const handleFormSubmit = useCallback((value, { resetForm }) => {
-    console.log(value);
-    handleSetDataList({ value: value.amount, description: value.description });
-    resetForm();
-    return true;
-  }, []);
+  const handleFormSubmit = useCallback(
+    (value, { resetForm }) => {
+      setIndex(index + 1);
+      /*setListData([
+        ...listData,
+        { value: value.amount, description: value.description, index: index },
+      ]);*/
+      localStorage.setItem(
+        index + 1,
+        JSON.stringify({
+          value: value.amount,
+          description: value.description,
+          index: index + 1,
+        })
+      );
+      localStorage.setItem("lastIndex", index + 1);
+      resetForm();
+      return true;
+    },
+    [index, setIndex]
+  );
 
   return (
     <Box sx={{ px: "20%", py: "2%" }}>

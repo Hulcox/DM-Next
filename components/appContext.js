@@ -10,6 +10,7 @@ export const AppContextProvider = (props) => {
 
   useEffect(() => {
     let resIn = listData.reduce((total, current) => {
+      console.log(current, listData);
       if (current.value > 0) {
         return Number(total) + Number(current.value);
       }
@@ -28,24 +29,24 @@ export const AppContextProvider = (props) => {
   }, [listData]);
 
   useEffect(() => {
-    console.log(localStorage);
-  });
-
-  const handleSetDataList = useCallback(
-    (data) => {
-      setListData([{ ...data, index: index }]);
-      localStorage.setItem(index, JSON.stringify(data));
-      localStorage.setItem("lastIndex", index);
-      console.log(index);
-      setIndex(index + 1);
-    },
-    [index]
-  );
+    setIndex(localStorage.getItem("lastIndex"));
+    let list = [];
+    for (let i = 0; i <= index; i++) {
+      list.push(JSON.parse(localStorage.getItem(i)));
+    }
+    setListData(list);
+  }, [index]);
 
   return (
     <AppContext.Provider
       {...props}
-      value={{ listData, resultatIn, resultatOut, handleSetDataList }}
+      value={{
+        listData,
+        resultatIn,
+        resultatOut,
+        index,
+        setIndex,
+      }}
     />
   );
 };

@@ -15,6 +15,8 @@ const ContentJournal = () => {
   const formatNumberNegative = (nb) => {
     return String(nb).slice(1);
   };
+
+  console.log(listData);
   return (
     <>
       <Grid container sx={{ px: "20%", py: "2%" }}>
