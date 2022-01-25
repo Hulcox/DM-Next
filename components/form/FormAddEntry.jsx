@@ -14,7 +14,7 @@ const FormAddEntry = () => {
     },
   });
 
-  const { index, setIndex } = useContext(AppContext);
+  const { addToList } = useContext(AppContext);
 
   const AddEntrySchema = Yup.object().shape({
     amount: Yup.number()
@@ -30,24 +30,13 @@ const FormAddEntry = () => {
 
   const handleFormSubmit = useCallback(
     (value, { resetForm }) => {
-      setIndex(index + 1);
-      /*setListData([
-        ...listData,
-        { value: value.amount, description: value.description, index: index },
-      ]);*/
-      localStorage.setItem(
-        index + 1,
-        JSON.stringify({
-          value: value.amount,
-          description: value.description,
-          index: index + 1,
-        })
-      );
-      localStorage.setItem("lastIndex", index + 1);
+      addToList({
+        value: value.amount,
+        description: value.description,
+      });
       resetForm();
-      return true;
     },
-    [index, setIndex]
+    [addToList]
   );
 
   return (

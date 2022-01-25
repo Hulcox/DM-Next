@@ -4,7 +4,7 @@ const InputArea = (props) => {
   return (
     <TextareaAutosize
       {...props}
-      style={{ width: "100%", padding: 1 }}
+      style={{ width: "98%", padding: "1%", fontSize: "15px" }}
       minRows={5}
     />
   );

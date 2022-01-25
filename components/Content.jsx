@@ -7,16 +7,25 @@ import {
   ListItemText,
   Typography,
   Box,
+  Button,
 } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AppContext from "./appContext";
 
 const ContentJournal = () => {
-  const { listData, resultatIn, resultatOut } = useContext(AppContext);
+  const { listData, resultatIn, resultatOut, resetList } =
+    useContext(AppContext);
   const formatNumberNegative = (nb) => {
-    return String(nb).slice(1);
+    if (nb === 0) return String(nb);
+    else return String(nb).slice(1);
   };
 
-  console.log(listData);
+  const theme = createTheme({
+    palette: {
+      primary: { main: "#900C3F" },
+    },
+  });
+
   return (
     <>
       <Grid container sx={{ px: "20%", py: "2%" }}>
@@ -30,36 +39,34 @@ const ContentJournal = () => {
               </ListItemText>
             </ListItem>
             <Divider />
-            {listData.map(({ value, description, index }) => {
+            {listData.map(({ value, description }, index) => {
               if (value < 0) {
                 return (
-                  <>
-                    <ListItem
-                      sx={{ bgcolor: index % 2 == 0 ? "white" : "#EFF3F8" }}
-                    >
-                      <ListItemText sx={{ textAlign: "right", height: "64px" }}>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                      </ListItemText>{" "}
-                    </ListItem>
-                  </>
+                  <ListItem
+                    sx={{ bgcolor: index % 2 == 0 ? "white" : "#EFF3F8" }}
+                    key={index}
+                  >
+                    <ListItemText sx={{ textAlign: "right", height: "64px" }}>
+                      <div>&nbsp;</div>
+                      <div>&nbsp;</div>
+                    </ListItemText>{" "}
+                  </ListItem>
                 );
               } else
                 return (
-                  <>
-                    <ListItem
-                      sx={{ bgcolor: index % 2 == 0 ? "white" : "#EFF3F8" }}
-                    >
-                      <ListItemText sx={{ textAlign: "right", height: "64px" }}>
-                        <Typography sx={{ color: "#1CE800" }}>
-                          {"+$" + value}
-                        </Typography>
-                        <Typography sx={{ fontStyle: "italic" }}>
-                          {description}
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                  </>
+                  <ListItem
+                    sx={{ bgcolor: index % 2 == 0 ? "white" : "#EFF3F8" }}
+                    key={index}
+                  >
+                    <ListItemText sx={{ textAlign: "right", height: "64px" }}>
+                      <Typography sx={{ color: "#1CE800" }}>
+                        {"+$" + value}
+                      </Typography>
+                      <Typography sx={{ fontStyle: "italic" }}>
+                        {description}
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
                 );
             })}
             <Divider />
@@ -88,36 +95,34 @@ const ContentJournal = () => {
               </ListItemText>
             </ListItem>
             <Divider />
-            {listData.map(({ value, description, index }) => {
+            {listData.map(({ value, description }, index) => {
               if (value > 0) {
                 return (
-                  <>
-                    <ListItem
-                      sx={{ bgcolor: index % 2 == 0 ? "white" : "#EFF3F8" }}
-                    >
-                      <ListItemText sx={{ textAlign: "right", height: "64px" }}>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                      </ListItemText>{" "}
-                    </ListItem>
-                  </>
+                  <ListItem
+                    sx={{ bgcolor: index % 2 == 0 ? "white" : "#EFF3F8" }}
+                    key={index}
+                  >
+                    <ListItemText sx={{ textAlign: "right", height: "64px" }}>
+                      <div>&nbsp;</div>
+                      <div>&nbsp;</div>
+                    </ListItemText>
+                  </ListItem>
                 );
               } else
                 return (
-                  <>
-                    <ListItem
-                      sx={{ bgcolor: index % 2 == 0 ? "white" : "#EFF3F8" }}
-                    >
-                      <ListItemText sx={{ textAlign: "right", height: "64px" }}>
-                        <Typography sx={{ color: "#E80000" }}>
-                          {"-$" + formatNumberNegative(value)}
-                        </Typography>
-                        <Typography sx={{ fontStyle: "italic" }}>
-                          {description}
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                  </>
+                  <ListItem
+                    sx={{ bgcolor: index % 2 == 0 ? "white" : "#EFF3F8" }}
+                    key={index}
+                  >
+                    <ListItemText sx={{ textAlign: "right", height: "64px" }}>
+                      <Typography sx={{ color: "#E80000" }}>
+                        {"-$" + formatNumberNegative(value)}
+                      </Typography>
+                      <Typography sx={{ fontStyle: "italic" }}>
+                        {description}
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
                 );
             })}
             <Divider />
@@ -173,6 +178,16 @@ const ContentJournal = () => {
               </Typography>
             )}
           </Box>
+          <ThemeProvider theme={theme}>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={resetList}
+              sx={{ mt: 2, ml: 2 }}
+            >
+              Clear
+            </Button>
+          </ThemeProvider>
         </Grid>
       </Grid>
     </>

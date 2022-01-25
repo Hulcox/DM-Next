@@ -2,15 +2,18 @@ import { createContext, useCallback, useEffect, useState } from "react";
 
 const AppContext = createContext({});
 
+const saveData = (data) => {
+  localStorage.setItem("data", JSON.stringify(data));
+};
+
 export const AppContextProvider = (props) => {
   const [listData, setListData] = useState([]);
   const [resultatIn, setResultatIn] = useState(0);
   const [resultatOut, setResultatOut] = useState(0);
-  const [index, setIndex] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     let resIn = listData.reduce((total, current) => {
-      console.log(current, listData);
       if (current.value > 0) {
         return Number(total) + Number(current.value);
       }
@@ -28,14 +31,36 @@ export const AppContextProvider = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listData]);
 
+  const addToList = useCallback((data) => {
+    setListData((currentdatas) => [...currentdatas, data]);
+    console.log(data);
+  }, []);
+
   useEffect(() => {
-    setIndex(localStorage.getItem("lastIndex"));
-    let list = [];
-    for (let i = 0; i <= index; i++) {
-      list.push(JSON.parse(localStorage.getItem(i)));
+    const localStorageDatas = localStorage.getItem("data");
+
+    if (!localStorageDatas) {
+      setLoaded(true);
+      return;
     }
-    setListData(list);
-  }, [index]);
+
+    const data = JSON.parse(localStorageDatas);
+    setListData(data);
+    setLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!loaded) {
+      return;
+    }
+    saveData(listData);
+  }, [loaded, listData]);
+
+  const resetList = useCallback(() => {
+    localStorage.clear();
+    setListData([]);
+    setResultatIn(0), setResultatOut(0);
+  }, []);
 
   return (
     <AppContext.Provider
@@ -44,8 +69,8 @@ export const AppContextProvider = (props) => {
         listData,
         resultatIn,
         resultatOut,
-        index,
-        setIndex,
+        addToList,
+        resetList,
       }}
     />
   );
