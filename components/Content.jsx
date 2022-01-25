@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext } from "react"
 import {
   Divider,
   Grid,
@@ -8,23 +8,26 @@ import {
   Typography,
   Box,
   Button,
-} from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import AppContext from "./appContext";
+} from "@mui/material"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import AppContext from "./appContext"
 
 const ContentJournal = () => {
   const { listData, resultatIn, resultatOut, resetList } =
-    useContext(AppContext);
+    useContext(AppContext)
   const formatNumberNegative = (nb) => {
-    if (nb === 0) return String(nb);
-    else return String(nb).slice(1);
-  };
+    if (nb === 0) {
+      return String(nb)
+    } else {
+      return String(nb).slice(1)
+    }
+  }
 
   const theme = createTheme({
     palette: {
       primary: { main: "#900C3F" },
     },
-  });
+  })
 
   return (
     <>
@@ -51,8 +54,8 @@ const ContentJournal = () => {
                       <div>&nbsp;</div>
                     </ListItemText>{" "}
                   </ListItem>
-                );
-              } else
+                )
+              } else {
                 return (
                   <ListItem
                     sx={{ bgcolor: index % 2 == 0 ? "white" : "#EFF3F8" }}
@@ -67,7 +70,8 @@ const ContentJournal = () => {
                       </Typography>
                     </ListItemText>
                   </ListItem>
-                );
+                )
+              }
             })}
             <Divider />
             <ListItem>
@@ -107,8 +111,8 @@ const ContentJournal = () => {
                       <div>&nbsp;</div>
                     </ListItemText>
                   </ListItem>
-                );
-              } else
+                )
+              } else {
                 return (
                   <ListItem
                     sx={{ bgcolor: index % 2 == 0 ? "white" : "#EFF3F8" }}
@@ -123,7 +127,8 @@ const ContentJournal = () => {
                       </Typography>
                     </ListItemText>
                   </ListItem>
-                );
+                )
+              }
             })}
             <Divider />
             <ListItem>
@@ -191,7 +196,7 @@ const ContentJournal = () => {
         </Grid>
       </Grid>
     </>
-  );
-};
+  )
+}
 
-export default ContentJournal;
+export default ContentJournal

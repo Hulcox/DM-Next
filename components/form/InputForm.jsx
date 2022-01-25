@@ -1,4 +1,4 @@
-import { InputLabel, OutlinedInput, InputAdornment } from "@mui/material";
+import { InputLabel, OutlinedInput, InputAdornment } from "@mui/material"
 const InputFormNumber = (props) => {
   return (
     <>
@@ -11,6 +11,6 @@ const InputFormNumber = (props) => {
         sx={{ mb: 2 }}
       />
     </>
-  );
-};
-export default InputFormNumber;
+  )
+}
+export default InputFormNumber

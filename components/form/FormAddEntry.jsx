@@ -1,20 +1,21 @@
-import React, { useCallback, useContext } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import AppContext from "../appContext";
-import { Formik, Form, Field } from "formik";
-import InputFormNumber from "./InputForm";
-import InputArea from "./InputAeraForm";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import * as Yup from "yup";
+import React, { useCallback, useContext } from "react"
+import { Box, Button, Typography } from "@mui/material"
+import AppContext from "../appContext"
+import { Formik, Form, Field } from "formik"
+import InputFormNumber from "./InputForm"
+import InputArea from "./InputAeraForm"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import * as Yup from "yup"
+import Swal from "sweetalert2"
 
 const FormAddEntry = () => {
   const theme = createTheme({
     palette: {
       primary: { main: "#900C3F" },
     },
-  });
+  })
 
-  const { addToList } = useContext(AppContext);
+  const { addToList } = useContext(AppContext)
 
   const AddEntrySchema = Yup.object().shape({
     amount: Yup.number()
@@ -26,18 +27,23 @@ const FormAddEntry = () => {
       )
       .required("Required"),
     description: Yup.string().required("Description is a required field"),
-  });
+  })
 
   const handleFormSubmit = useCallback(
     (value, { resetForm }) => {
       addToList({
         value: value.amount,
         description: value.description,
-      });
-      resetForm();
+      })
+      resetForm()
+      Swal.fire(
+        "Added",
+        `value : ${value.amount} and description : ${value.description}`,
+        "success"
+      )
     },
     [addToList]
-  );
+  )
 
   return (
     <Box sx={{ px: "20%", py: "2%" }}>
@@ -83,7 +89,7 @@ const FormAddEntry = () => {
         )}
       </Formik>
     </Box>
-  );
-};
+  )
+}
 
-export default FormAddEntry;
+export default FormAddEntry

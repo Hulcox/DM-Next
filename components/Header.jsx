@@ -1,15 +1,15 @@
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
-import React from "react";
-import "@fontsource/roboto/700.css";
-import Link from "next/link";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material"
+import React from "react"
+import "@fontsource/roboto/700.css"
+import Link from "next/link"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
 
 const HeaderBar = ({ title }) => {
   const theme = createTheme({
     palette: {
       primary: { main: "#581845" },
     },
-  });
+  })
 
   return (
     <ThemeProvider theme={theme}>
@@ -29,7 +29,7 @@ const HeaderBar = ({ title }) => {
         </AppBar>
       </Box>
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export default HeaderBar;
+export default HeaderBar

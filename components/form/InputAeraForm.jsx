@@ -1,4 +1,4 @@
-import { TextareaAutosize } from "@mui/material";
+import { TextareaAutosize } from "@mui/material"
 
 const InputArea = (props) => {
   return (
@@ -7,7 +7,7 @@ const InputArea = (props) => {
       style={{ width: "98%", padding: "1%", fontSize: "15px" }}
       minRows={5}
     />
-  );
-};
+  )
+}
 
-export default InputArea;
+export default InputArea
