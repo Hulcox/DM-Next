@@ -1,10 +1,7 @@
 import { createContext, useCallback, useEffect, useState } from "react"
+import Swal from "sweetalert2"
 
 const AppContext = createContext({})
-
-const saveData = (data) => {
-  localStorage.setItem("data", JSON.stringify(data))
-}
 
 export const AppContextProvider = (props) => {
   const [listData, setListData] = useState([])
@@ -13,29 +10,27 @@ export const AppContextProvider = (props) => {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    let resIn = listData.reduce((total, current) => {
-      if (current.value > 0) {
-        return Number(total) + Number(current.value)
-      }
+    if (listData.length > 0) {
+      setResultatIn(() =>
+        listData.reduce((total, current) => {
+          if (current.value > 0) {
+            return total + Number(current.value)
+          }
 
-      return Number(total) + 0
-    }, 0)
+          return total
+        }, 0)
+      )
+      setResultatOut(() =>
+        listData.reduce((total, current) => {
+          if (current.value < 0) {
+            return Number(total) + Number(current.value)
+          }
 
-    let resOut = listData.reduce((total, current) => {
-      if (current.value < 0) {
-        return Number(total) + Number(current.value)
-      }
-
-      return Number(total) + 0
-    }, 0)
-    setResultatIn(resultatIn + resIn)
-    setResultatOut(resultatOut + resOut)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+          return Number(total)
+        }, 0)
+      )
+    }
   }, [listData])
-
-  const addToList = useCallback((data) => {
-    setListData((currentdatas) => [...currentdatas, data])
-  }, [])
 
   useEffect(() => {
     const localStorageDatas = localStorage.getItem("data")
@@ -60,9 +55,36 @@ export const AppContextProvider = (props) => {
   }, [loaded, listData])
 
   const resetList = useCallback(() => {
-    localStorage.clear()
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, clear it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clearAll()
+        Swal.fire("Cleared!", "The list has been cleared.", "success")
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const addToList = useCallback((data) => {
+    setListData((currentdata) => [...currentdata, data])
+  }, [])
+
+  const saveData = (data) => {
+    localStorage.setItem("data", JSON.stringify(data))
+  }
+
+  const clearAll = useCallback(() => {
+    localStorage.removeItem("data")
     setListData([])
-    setResultatIn(0), setResultatOut(0)
+    setResultatIn(0)
+    setResultatOut(0)
   }, [])
 
   return (
