@@ -19,26 +19,24 @@ export const AppContextProvider = (props) => {
   }, [listData])
 
   useEffect(() => {
-    if (listData.length > 0) {
-      setResultatIn(() =>
-        listData.reduce((total, current) => {
-          if (current.value > 0) {
-            return total + Number(current.value)
-          }
+    setResultatIn(() =>
+      listData.reduce((total, current) => {
+        if (current.value > 0) {
+          return total + Number(current.value)
+        }
 
-          return total
-        }, 0)
-      )
-      setResultatOut(() =>
-        listData.reduce((total, current) => {
-          if (current.value < 0) {
-            return Number(total) + Number(current.value)
-          }
+        return total
+      }, 0)
+    )
+    setResultatOut(() =>
+      listData.reduce((total, current) => {
+        if (current.value < 0) {
+          return Number(total) + Number(current.value)
+        }
 
-          return Number(total)
-        }, 0)
-      )
-    }
+        return Number(total)
+      }, 0)
+    )
   }, [listData])
 
   const resetList = useCallback(() => {
