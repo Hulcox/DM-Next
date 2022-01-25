@@ -11,14 +11,11 @@ export const AppContextProvider = (props) => {
   useEffect(() => {
     const localStorageDatas = localStorage.getItem("data")
     const data = JSON.parse(localStorageDatas)
-    setListData(data)
+    setListData(data || [])
   }, [])
 
   useEffect(() => {
     saveData(listData)
-  }, [listData])
-
-  useEffect(() => {
     setResultatIn(() =>
       listData.reduce((total, current) => {
         if (current.value > 0) {
@@ -62,7 +59,11 @@ export const AppContextProvider = (props) => {
   }, [])
 
   const saveData = (data) => {
-    localStorage.setItem("data", JSON.stringify(data))
+    if (data === null) {
+      localStorage.setItem("data", JSON.stringify([]))
+    } else {
+      localStorage.setItem("data", JSON.stringify(data))
+    }
   }
 
   const clearAll = useCallback(() => {
