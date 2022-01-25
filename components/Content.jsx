@@ -82,7 +82,6 @@ const ContentJournal = () => {
               </ListItemText>
               <ListItemText sx={{ textAlign: "right" }}>
                 <Typography sx={{ color: "#1CE800" }}>
-                  {console.log(resultatIn)}
                   {"+$" + resultatIn}
                 </Typography>
               </ListItemText>

@@ -10,6 +10,21 @@ export const AppContextProvider = (props) => {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
+    const localStorageDatas = localStorage.getItem("data")
+    const data = JSON.parse(localStorageDatas)
+    setListData(data)
+    setLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    if (!loaded) {
+      return
+    }
+
+    saveData(listData)
+  }, [loaded, listData])
+
+  useEffect(() => {
     if (listData.length > 0) {
       setResultatIn(() =>
         listData.reduce((total, current) => {
@@ -30,29 +45,9 @@ export const AppContextProvider = (props) => {
         }, 0)
       )
     }
-  }, [listData])
 
-  useEffect(() => {
-    const localStorageDatas = localStorage.getItem("data")
-
-    if (!localStorageDatas) {
-      setLoaded(true)
-
-      return
-    }
-
-    const data = JSON.parse(localStorageDatas)
-    setListData(data)
     setLoaded(true)
-  }, [])
-
-  useEffect(() => {
-    if (!loaded) {
-      return
-    }
-
-    saveData(listData)
-  }, [loaded, listData])
+  }, [listData])
 
   const resetList = useCallback(() => {
     Swal.fire({

@@ -9,7 +9,7 @@ const InputFormNumber = (props) => {
         {...props}
         fullWidth
         sx={{ mb: 2 }}
-        error={props.borderError}
+        error={props.bordererror}
       />
     </>
   )
