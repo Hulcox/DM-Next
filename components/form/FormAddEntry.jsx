@@ -57,7 +57,12 @@ const FormAddEntry = () => {
       >
         {({ handleSubmit, isSubmitting, errors, touched }) => (
           <Form onSubmit={handleSubmit}>
-            <Field name="amount" placeholder="Amount" as={InputFormNumber} />
+            <Field
+              name="amount"
+              placeholder="Amount"
+              borderError={errors.amount}
+              as={InputFormNumber}
+            />
             <Typography variant="body" color={"error.main"}>
               {errors.amount && touched.amount ? errors.amount : null}
             </Typography>
@@ -65,6 +70,7 @@ const FormAddEntry = () => {
               <Field
                 placeholder="Description"
                 name="description"
+                borderError={errors.description}
                 as={InputArea}
               />
             </Box>
