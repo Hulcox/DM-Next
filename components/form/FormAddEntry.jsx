@@ -60,7 +60,7 @@ const FormAddEntry = () => {
             <Field
               name="amount"
               placeholder="Amount"
-              bordererror={String(Boolean(errors.amount))}
+              bordererror={errors.amount}
               as={InputFormNumber}
             />
             <Typography variant="body" color={"error.main"}>
@@ -70,7 +70,7 @@ const FormAddEntry = () => {
               <Field
                 placeholder="Description"
                 name="description"
-                bordererror={String(Boolean(errors.description))}
+                bordererror={errors.description}
                 as={InputArea}
               />
             </Box>

@@ -7,22 +7,16 @@ export const AppContextProvider = (props) => {
   const [listData, setListData] = useState([])
   const [resultatIn, setResultatIn] = useState(0)
   const [resultatOut, setResultatOut] = useState(0)
-  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     const localStorageDatas = localStorage.getItem("data")
     const data = JSON.parse(localStorageDatas)
     setListData(data)
-    setLoaded(true)
   }, [])
 
   useEffect(() => {
-    if (!loaded) {
-      return
-    }
-
     saveData(listData)
-  }, [loaded, listData])
+  }, [listData])
 
   useEffect(() => {
     if (listData.length > 0) {
@@ -45,8 +39,6 @@ export const AppContextProvider = (props) => {
         }, 0)
       )
     }
-
-    setLoaded(true)
   }, [listData])
 
   const resetList = useCallback(() => {
