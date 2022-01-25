@@ -78,7 +78,7 @@ export const AppContextProvider = (props) => {
     <AppContext.Provider
       {...props}
       value={{
-        listData,
+        listData: listData || [],
         resultatIn,
         resultatOut,
         addToList,
