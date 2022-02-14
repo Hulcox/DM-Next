@@ -59,11 +59,7 @@ export const AppContextProvider = (props) => {
   }, [])
 
   const saveData = (data) => {
-    if (data === null) {
-      localStorage.setItem("data", JSON.stringify([]))
-    } else {
-      localStorage.setItem("data", JSON.stringify(data))
-    }
+    localStorage.setItem("data", JSON.stringify(data ?? []))
   }
 
   const clearAll = useCallback(() => {
